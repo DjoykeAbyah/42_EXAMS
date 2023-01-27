@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/27 13:21:47 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/01/27 19:34:58 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/01/27 21:35:27 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_check(char *str, int i, int j)
 	int	x;
 
 	x = 0;
-	while (str[i] == str[j] && i != j)
+	while (str[i] == str[j] && i != j && j != 0)
 	{
 		i++;
 		if (j != i)
@@ -54,11 +54,13 @@ void	ft_printstr(char *s, int i, int j)
 	}
 }
 
-int	*ft_loop(char *str)
+void	ft_loop(char *str)
 {
 	int	i;
 	int	j;
 	int	x;
+	int a = 0;
+	int b = 0;
 
 	i = 0;
 	j = ft_strlen(str) - 1;
@@ -69,10 +71,27 @@ int	*ft_loop(char *str)
 			x = ft_check(str, i, j);
 			if (x == 1)
 			{
-				ft_printstr(&str[i], i, j);
-				return (0);
+				if (b == 0)
+				{
+					a = i;
+					b = j;
+				}
+				else
+				{
+					if ((b - a) <= (j - i))
+					{
+					a = i;
+					b = j;
+					}
+					printf("ints are what? %i, %i\n", a, b);
+				}
 			}
-			if (x == 0)
+// figure out how to make check to continue j until 0 to see
+			else
+			{
+				j--;
+			}
+			if (j == 0)
 			{
 				i++;
 				j = ft_strlen(str) - 1;
@@ -85,5 +104,5 @@ int	*ft_loop(char *str)
 			i++;
 		}	
 	}
-	return (0);
+	ft_printstr(&str[a], a, b);
 }
