@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/27 13:21:54 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/01/27 21:25:00 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/01/29 12:12:04 by djoyke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,30 @@ int	main(void)
 	// char	*str;
 	// char	*str1;
 	// char	*str2;
-	char	*str3;
+	//char	*str3;
 	// char	*str4;
+	// char	*str5;
+	char	*str6;
 
 	// str = "98765abcba42";
 	// str1 = "5fedabcbadef42";
 	// str2 = "985abcba4meetsysteem31";
-	str3 = "98meetsysteem5abcbamaam4";
+	//str3 = "98meetsysteem5abcbamaam4";
 	// str4 = "5abcba4310132";
+	// str5 = "98meetsysteem5abcbameaaem4";
+	str6 = "aameaaem88meetsysteem55abcbamm44";
 
-	// ft_loop(str);
+	// ft_palindrome(str);
 	// printf("\n");
-	// ft_loop(str1);
+	// ft_palindrome(str1);
 	// printf("\n");
-	// // ft_loop(str2);
+	// // ft_palindrome(str2);
 	// printf("\n");
-	ft_loop(str3);
+	//ft_palindrome(str3);
 	// printf("\n");
-	// ft_loop(str4);
+	// ft_palindrome(str4);
+	// printf("\n");
+	// ft_palindrome(str5);
+	printf("\n");
+	ft_palindrome(str6);
 }

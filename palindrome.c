@@ -6,12 +6,13 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/27 13:21:47 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/01/27 21:35:27 by dreijans      ########   odam.nl         */
+/*   Updated: 2023/01/29 12:15:53 by djoyke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "palindrome.h"
 
+//checks lenght of string for j to start at
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -24,11 +25,10 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+//when palindrome seems to be found
+//checks if all positions till centre are equal
 int	ft_check(char *str, int i, int j)
 {
-	int	x;
-
-	x = 0;
 	while (str[i] == str[j] && i != j && j != 0)
 	{
 		i++;
@@ -40,6 +40,8 @@ int	ft_check(char *str, int i, int j)
 	return (1);
 }
 
+//when all positions are equal prints palindrome
+//at start of palindrome in string
 void	ft_printstr(char *s, int i, int j)
 {
 	int	len;
@@ -54,7 +56,8 @@ void	ft_printstr(char *s, int i, int j)
 	}
 }
 
-void	ft_loop(char *str)
+
+void	ft_palindrome(char *str)
 {
 	int	i;
 	int	j;
@@ -68,9 +71,11 @@ void	ft_loop(char *str)
 	{
 		if (str[i] == str[j])
 		{
+			//check if its actual palindrome
 			x = ft_check(str, i, j);
 			if (x == 1)
 			{
+				//make this into save function?
 				if (b == 0)
 				{
 					a = i;
@@ -86,11 +91,9 @@ void	ft_loop(char *str)
 					printf("ints are what? %i, %i\n", a, b);
 				}
 			}
-// figure out how to make check to continue j until 0 to see
+			//check to continue j until 0 to see
 			else
-			{
 				j--;
-			}
 			if (j == 0)
 			{
 				i++;
@@ -98,6 +101,7 @@ void	ft_loop(char *str)
 			}
 		}
 		j--;
+		//reset to start from new position i
 		if (j == i)
 		{
 			j = ft_strlen(str) - 1;
