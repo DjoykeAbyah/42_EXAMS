@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/27 13:21:47 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/02/01 14:34:49 by djoyke        ########   odam.nl         */
+/*   Updated: 2023/02/01 16:24:29 by djoyke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,6 @@ void	ft_palindrome(char *str)
 					b = j;
 					}
 				}
-			}
-			//check to continue j until 0 to see
-			else
-				j--;
-			if (j == 0)
-			{
-				j = ft_strlen(str) - 1;
-				i++;
 			}
 		}
 		j--;
