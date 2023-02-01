@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/01/27 13:21:47 by dreijans      #+#    #+#                 */
-/*   Updated: 2023/01/29 12:15:53 by djoyke        ########   odam.nl         */
+/*   Updated: 2023/02/01 14:34:49 by djoyke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	ft_printstr(char *s, int i, int j)
 	}
 }
 
-
 void	ft_palindrome(char *str)
 {
 	int	i;
@@ -73,10 +72,10 @@ void	ft_palindrome(char *str)
 		{
 			//check if its actual palindrome
 			x = ft_check(str, i, j);
+			//save untill bigger or last one found
 			if (x == 1)
 			{
-				//make this into save function?
-				if (b == 0)
+				if (b == 0 && a == 0)
 				{
 					a = i;
 					b = j;
@@ -88,7 +87,6 @@ void	ft_palindrome(char *str)
 					a = i;
 					b = j;
 					}
-					printf("ints are what? %i, %i\n", a, b);
 				}
 			}
 			//check to continue j until 0 to see
@@ -96,8 +94,8 @@ void	ft_palindrome(char *str)
 				j--;
 			if (j == 0)
 			{
-				i++;
 				j = ft_strlen(str) - 1;
+				i++;
 			}
 		}
 		j--;
