@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/17 14:55:29 by dreijans      #+#    #+#                 */
-/*   Updated: 2024/04/17 17:38:00 by dreijans      ########   odam.nl         */
+/*   Updated: 2024/04/17 18:55:49 by djoyke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,18 +302,15 @@ char **fill_array(char *str, char **new_array)
 
 int count_array(char **array)
 {
-	int i;
+    int i;
 
-	i = 0;
-	while (array != NULL)
-	{
-		if (*array == NULL)
-		{
-			return (i);
-		}
-		i++;
-	}
-	return (i);
+    i = 0;
+    while (*array != NULL)
+    {
+        i++;
+        array++;
+    }
+    return i;
 }
 
 void print_array(char **array)
@@ -336,8 +333,8 @@ int main (int argc, char **argv)
 	int j;
 	int k;
 	int iterator;
-	// int size_open;
-	// int size_close;
+	int size_open;
+	int size_close;
 	char **array;
 	char **open;
 	char **close;
@@ -376,21 +373,30 @@ int main (int argc, char **argv)
 				open[ft_strlen(array[iterator])] = "\0";
 				k++;
 			}
-			iterator++;
-
 		}
-		iterator++;	
+		iterator++;
 	}
-	// size_close = count_array(close);
-	// size_open = count_array(open);
-	// if (size_close != size_open)
-	// {
-	// 	write(1, "KO\n", 3);
-	// 	return (0);
-	// }
-	// else
-	// {
-	// 	write(1, "OK\n", 3);
-	// 	return (0);
-	// }
+	printf("close\n");
+	print_array(close);
+	printf("open\n");
+	print_array(open);
+	size_close = count_array(close);
+	size_open = count_array(open);
+	// printf("size open = [%i]\n", size_open);
+	// printf("size close = [%i]\n", size_close);
+	if (size_close != size_open)
+	{
+		write(1, "KO\n", 3);
+		return (0);
+	}
+	i = 0;
+	j = 0;
+	if (open[size_close - 1][j + 1] != close[i][j + 2])
+	{
+		write (1, "KO\n", 3);
+		return (0);
+	}
+	else
+		write(1, "OK\n", 3);
+
 }
