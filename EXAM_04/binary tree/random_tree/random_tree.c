@@ -55,6 +55,21 @@ void print_tree(t_node *tree, int spaces)
     print_tree(tree->right, spaces);
 }
 
+int	size_tree(t_node *tree)
+{
+
+	int	size = 0;
+
+	if (!tree)
+		return (0);
+	size += 1;
+	if (tree->left)
+		size += size_tree(tree->left);
+	if (tree->right)
+		size += size_tree(tree->right);
+	return (size);
+}
+
 int check(t_node *tree, int value)
 {
 	if (tree)
