@@ -6,10 +6,15 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/17 14:55:29 by dreijans      #+#    #+#                 */
-/*   Updated: 2024/04/29 19:13:23 by dreijans      ########   odam.nl         */
+/*   Updated: 2024/04/29 19:19:01 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
@@ -106,35 +111,4 @@ bool tagvalidator(char *str1)
     }
     return top == -1;
 	
-}
-
-// <html></html>
-// <html><body><img/><div></div></body></html>
-// <bla></html><bla></html>
-// <html><bla></html><html></bla></html>
-// <html><html></html><img></html><html><img></html>
-int main(int argc, char **argv) 
-{
-	int i;
-
-	i = 1;
-	while (i < argc)
-	{
-		if (tagvalidator(argv[i]) == false)
-		{
-			write(1, "KO\n", 3);
-			return (1);
-		}
-		else if (tagvalidator(argv[i]) == true)
-		{
-			write(1, "OK\n", 3);
-			return (0);
-		}
-		if (argc == 1)
-		{
-			write(1, "\n", 1);
-			return (1);
-		}
-	}
-    return 0;
 }
