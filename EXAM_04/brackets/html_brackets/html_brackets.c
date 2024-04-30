@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/17 14:55:29 by dreijans      #+#    #+#                 */
-/*   Updated: 2024/04/30 21:33:02 by dreijans      ########   odam.nl         */
+/*   Updated: 2024/04/30 21:38:48 by dreijans      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,6 @@ t_list *ft_lstnew(void *content)
 	new_node->content = content;
 	new_node->next = NULL;
 	return (new_node);
-}
-
-int	ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-void	ft_strcpy(char *dst, const char *src)
-{
-	int i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
 }
 
 int check_same(t_list **lst, char *word)
@@ -180,9 +157,9 @@ int main(int argc, char **argv)
 	}
 	while (j < argc)
 	{
-		if (!argv[i])
+		if (argv[i][0] == '\0')
 			write (1, "OK\n", 3);
-		if (validate(&list, argv[i]) == false)
+		else if (validate(&list, argv[i]) == false)
 		{
 			write(1, "KO\n", 3);
 		}
