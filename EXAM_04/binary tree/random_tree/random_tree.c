@@ -23,7 +23,7 @@ t_node *init_tree(t_node *tree, int value)
 }
 
 /*
-    also appends
+    also appends/inserts
 */
 t_node *create_tree(t_node *tree, int value)
 {
@@ -68,6 +68,31 @@ int	size_tree(t_node *tree)
 	if (tree->right)
 		size += size_tree(tree->right);
 	return (size);
+}
+
+int	longest_tree(t_node *tree)
+{
+
+	int	size = 0;
+	int right_size;
+	int left_size;
+
+	if (!tree)
+		return (0);
+	size += 1;
+	if (tree->left)
+	{
+		size += size_tree(tree->left);
+		left_size = size;
+	}
+	if (tree->right)
+	{
+		size += size_tree(tree->right);
+		right_size = size;
+	}
+	if (right_size > left_size)
+		return (right_size);
+	return (left_size);
 }
 
 int check(t_node *tree, int value)
