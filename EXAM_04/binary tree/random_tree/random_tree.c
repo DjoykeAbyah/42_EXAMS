@@ -70,15 +70,15 @@ int	size_tree(t_node *tree)
 	return (size);
 }
 
-int	longest_tree(t_node *tree)
+int	height_tree(t_node *tree)
 {
 
 	int	size = 0;
-	int right_size;
-	int left_size;
+	int right_size = 0;
+	int left_size = 0;
 
 	if (!tree)
-		return (0);
+		return (-1);
 	size += 1;
 	if (tree->left)
 	{
@@ -94,6 +94,28 @@ int	longest_tree(t_node *tree)
 		return (right_size);
 	return (left_size);
 }
+
+// int longest_sequence(struct s_node *node)
+// {
+// 	int right;
+// 	int left;
+
+// 	if (!node)
+// 		return (0);
+// 	if (node->right && node->right->value == node->value + 1)
+// 	{
+// 		right = (1 + longest_sequence(node->right));
+// 	}
+// 	if (node->left && node->left->value == node->value + 1)
+// 	{
+// 		left = (1 + longest_sequence(node->left));
+// 	}
+// 	if (right > left)
+// 		return (1 + longest_sequence(node->right));
+// 	else
+// 		return (1 + longest_sequence(node->left));
+// }
+
 
 int check(t_node *tree, int value)
 {
@@ -132,14 +154,19 @@ int main(void)
 	int spaces = 0;
 
 	tree = NULL;
-	tree = create_tree(tree, 94);
-	tree = create_tree(tree, 34);
-	tree = create_tree(tree, 93);
-	tree = create_tree(tree, 100);
-	tree = create_tree(tree, 101);
+	tree = create_tree(tree, 5);
+	tree = create_tree(tree, 20);
+	tree = create_tree(tree, 1);
+	tree = create_tree(tree, 14);
+	tree = create_tree(tree, 52);
+	tree = create_tree(tree, 11);
+	tree = create_tree(tree, 13);
 	print_tree(tree, spaces);
-	swap_tree(tree);
+	// swap_tree(tree);
+	size_tree(tree);
+	printf("size is %d\n", size_tree(tree));
+	// printf("height is %d\n", height_tree(tree));
 	// print_tree(tree, spaces);
 	// check(tree, 34);
-	print_tree(tree, spaces);
+	// print_tree(tree, spaces);
 }

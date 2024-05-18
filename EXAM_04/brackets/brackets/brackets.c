@@ -6,11 +6,21 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/17 12:45:29 by dreijans      #+#    #+#                 */
-/*   Updated: 2024/04/18 17:46:32 by dreijans      ########   odam.nl         */
+/*   Updated: 2024/05/18 20:35:55 by djoyke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+
+int ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
 
 int match_check(char a, char b)
 {
@@ -28,6 +38,14 @@ int close_check(char *str)
 
 	i = 0;
 	top = 0;
+	if (!str)
+		return (0);
+	if (str[0] == '}' || str[0] == ')' || str[0] == ']')
+		return (1);
+	if ((ft_strlen(str) == 1) && str[0] != '{' || str[0] != '(' || str[0] != '[')
+		return (0);
+	if (ft_strlen(str) == 1)
+		return (1);
 	while (str[i])
 	{
 		if (str[i] == '(' || str[i] == '{' || str[i] == '[')
@@ -43,6 +61,8 @@ int close_check(char *str)
 		}
 		i++;
 	}
+	if (top != 0)
+		return (1);
 	return (0);
 }
 
@@ -60,6 +80,8 @@ int main(int argc, char **argv)
 	}
 	while (count != 0 && argv[i] != (void *)0)
 	{
+		if (argv[i][0] == '\0')
+			write(1, "OK\n", 3);
 		if (close_check(argv[i]) == 0)
 			write(1, "OK\n", 3);
 		else

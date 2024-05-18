@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/17 14:55:29 by dreijans      #+#    #+#                 */
-/*   Updated: 2024/04/30 21:38:48 by dreijans      ########   odam.nl         */
+/*   Updated: 2024/05/15 10:15:14 by djoyke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,9 @@ int check_same(t_list **lst, char *word)
 	prev_node = NULL;
 	curr_node = *lst;
 	if (*lst == NULL)
-		return false;
+		return (false);
 	while (curr_node != NULL)
 	{
-		printf("node_content = %s\n", (char *)curr_node->content);
-		printf("word = %s\n", word);
 		if (strcmp((char *)curr_node->content, word) == 0)
 		{
 			if (prev_node != NULL)
@@ -108,7 +106,7 @@ bool validate(t_list **lst, char *str)
 			{
 				char *word = malloc((j - i + 1) * sizeof(char));
 				strncpy(word, &str[i + 1], j - i - 1);
-				word[j - 1 + 1] = '\0';
+				word[j] = '\0';
 				if (strcmp(word, "img") != 0)
 				{
 					new_node = ft_lstnew(word);
@@ -126,7 +124,7 @@ bool validate(t_list **lst, char *str)
 			{
 				char *word = malloc((j - i + 1) * sizeof(char));
 				strncpy(word, &str[i + 2], (j - i - 2));
-				word[j - i + 1] = '\0';	
+				word[j] = '\0';	
 				if (strcmp(word, "img") != 0)
 				{
 					if (check_same(lst, word) == 1)
@@ -168,5 +166,5 @@ int main(int argc, char **argv)
 		i++;
 		j++;
 	}
-    return 0;
+    return (0);
 }
