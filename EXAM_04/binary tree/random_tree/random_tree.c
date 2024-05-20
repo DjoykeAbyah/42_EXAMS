@@ -169,4 +169,9 @@ int main(void)
 	// print_tree(tree, spaces);
 	// check(tree, 34);
 	// print_tree(tree, spaces);
+	//small num 
+	//min num
+	//insert
+	//longest leg size
+
 }
