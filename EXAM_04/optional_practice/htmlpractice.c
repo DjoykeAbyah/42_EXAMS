@@ -24,14 +24,14 @@ t_list *ft_lstnew(void *content)
 
 t_list *ft_lstlast(t_list *lst)
 {
-    if (lst == NULL)
+    if (!lst)
         return (NULL);
     while (lst->next != NULL)
         lst = lst->next;
     return (lst);
 }
 
-void ft_lstadd_back(t_list **lst, t_list *new)
+void *ft_lstaddback(t_list **lst, t_list *new)
 {
     t_list *back;
 
@@ -44,114 +44,113 @@ void ft_lstadd_back(t_list **lst, t_list *new)
         *lst = new;
 }
 
-
-int check_same(t_list **lst, char *word)
+int same_check(t_list **lst, char *str)
 {
-    t_list *prev_node;
-    t_list *curr_node;
+    t_list *prev;
+    t_list *cur;
     t_list *temp;
 
-    prev_node = NULL;
-    curr_node = *lst;
-    if (*lst == NULL)
-        return (false);
-    while (curr_node != NULL)
+    prev = NULL;
+    cur = *lst;
+    temp = NULL;
+    if (!lst)
+        return (1);
+    while (cur != NULL)//not cur->next!
     {
-        if (strcmp((char *)curr_node->content, word) == 0)
+        if (strcmp((char *)cur->content, str) == 0)//cast it!
         {
-            if (prev_node != NULL)
-                prev_node->next = curr_node->next;
+            if (prev != NULL)
+                prev->next = cur->next;//not prev it's prev->next
             else
-                *lst = curr_node->next;
-            free(curr_node->content);
-            temp = curr_node;
-            curr_node = curr_node->next;
+                *lst = cur->next;
+            free(cur->content);
+            temp = cur;
+            cur = cur->next;
             free(temp);
-            return (0);
+            return (0);///don't forget
         }
-        prev_node = curr_node;
-        curr_node = curr_node->next;
+        else
+            prev = cur;
+            cur = cur->next;
     }
     return (1);
 }
 
-bool validate(t_list **lst, char *str)
+int validate(t_list *lst, char *str)
 {
     int i;
     t_list *new_node;
 
     i = 0;
     if (!str)
-        return (true);
+        return (0);
     if (str[0] != '<')
-        return (false);
+        return (1);
     while (str[i] != '\0')
     {
-        if (str[i] == '<' && str[i + 1] != '/')
+        if (str[i] = '<' && str[i + 1] != '/')
         {
-            int j = i + 1;
-            while (str[j] != '\0' && str[j] != '>')
+            int j = i;
+            while (str[j] != '>' && str[j] != '\0')
                 j++;
             if (str[j] == '>')
             {
-                char *word = malloc((j - i + 1) * sizeof(char));
-                strncpy(word, &str[i + 1], j - i - 1);
+                char *word = malloc(sizeof (char) * (j - i + 1));
+                strncy(word, str[i + 1], (j - i + 1));
                 word[j] = '\0';
                 if (strcmp(word, "img") != 0)
                 {
                     new_node = ft_lstnew(word);
-                    ft_lstadd_back(lst, new_node);
+                    ft_lstaddback(lst, new_node);
                 }
                 i = j;
             }
         }
-        if (str[i] == '<' && str[i + 1] == '/')
+        if (str[i] = '<' && str[i + 1] == '/')
         {
-            int j = i + 1;
-            while (str[j] != '\0' && str[j] != '>')
+            int j = i;
+            while (str[j] != '>' && str[j] != '\0')
                 j++;
             if (str[j] == '>')
             {
-                char *word = malloc((j - i + 1) * sizeof(char));
-                strncpy(word, &str[i + 2], (j - i - 2));
-                word[j - i + 1] = '\0';
-                 if (strcmp(word, "img") != 0)
+                char *word = malloc(sizeof (char) * (j - i + 1));
+                strncy(word, str[i + 1], (j - i + 1));
+                word[j] = '\0';
+                if (strcmp(word, "img") != 0)
                 {
-                    if (check_same(lst, word) == 1)
-                        return (false);
+                    if (same_check(lst, word) != 0)
+                        return (1);
                 }
-                free(word);
+                free (word);
             }
             i = j;
         }
         i++;
     }
-    return (true);
+    return (0);
 }
-
 int main(int argc, char **argv)
 {
-    t_list *lst;
     int i;
     int j;
+    t_list *lst;
 
-    lst = NULL;
     i = 1;
     j = 1;
+    lst = NULL;
     if (argc == 1)
     {
         write(1, "\n", 1);
-        return (0);
+            return (0);
     }
-    while (j < argc)
+    while (j < argc && argv[i] != NULL)
     {
         if (argv[i][0] == '\0')
             write(1, "OK\n", 3);
-        else if (validate(&lst, argv[i]) == false)
-            write(1, "KO\n", 3);
-        else
+        else if (validate(lst, argv[i]) == 0)// remember else if
             write(1, "OK\n", 3);
-        i++;
+        else
+            write(1, "KO\n", 3);\
         j++;
     }
     return (0);

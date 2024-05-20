@@ -6,7 +6,7 @@
 /*   By: dreijans <dreijans@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/17 12:45:29 by dreijans      #+#    #+#                 */
-/*   Updated: 2024/05/18 20:35:55 by djoyke        ########   odam.nl         */
+/*   Updated: 2024/05/19 22:55:49 by djoyke        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int close_check(char *str)
 		return (0);
 	if (str[0] == '}' || str[0] == ')' || str[0] == ']')
 		return (1);
-	if ((ft_strlen(str) == 1) && str[0] != '{' || str[0] != '(' || str[0] != '[')
+	if ((ft_strlen(str) == 1) && str[0] != '{' && str[0] != '(' && str[0] != '[')//??
 		return (0);
 	if (ft_strlen(str) == 1)
 		return (1);
@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 	{
 		if (argv[i][0] == '\0')
 			write(1, "OK\n", 3);
-		if (close_check(argv[i]) == 0)
+		else if (close_check(argv[i]) == 0)
 			write(1, "OK\n", 3);
 		else
 			write(1, "Error\n", 6);
