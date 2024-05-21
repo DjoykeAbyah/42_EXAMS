@@ -30,9 +30,7 @@ t_node *create_tree(t_node *tree, int value)
 	t_node *return_tree;
 
 	if (!tree)
-	{
 		return (return_tree = init_tree(tree, value));
-	}
 	if (tree->value > value)
 		tree->left = create_tree(tree->left, value);
 	else
@@ -43,9 +41,7 @@ t_node *create_tree(t_node *tree, int value)
 void print_tree(t_node *tree, int spaces) 
 {
     if (tree == NULL)
-	{
         return;
-	}
 	spaces += 5;
     print_tree(tree->left, spaces);
     printf("\n");
@@ -162,16 +158,6 @@ int main(void)
 	tree = create_tree(tree, 11);
 	tree = create_tree(tree, 13);
 	print_tree(tree, spaces);
-	// swap_tree(tree);
 	size_tree(tree);
 	printf("size is %d\n", size_tree(tree));
-	// printf("height is %d\n", height_tree(tree));
-	// print_tree(tree, spaces);
-	// check(tree, 34);
-	// print_tree(tree, spaces);
-	//small num 
-	//min num
-	//insert
-	//longest leg size
-
 }
