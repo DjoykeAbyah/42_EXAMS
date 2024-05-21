@@ -91,26 +91,26 @@ int	height_tree(t_node *tree)
 	return (left_size);
 }
 
-// int longest_sequence(struct s_node *node)
-// {
-// 	int right;
-// 	int left;
+int longest_sequence(struct s_node *node)
+{
+	int right;
+	int left;
 
-// 	if (!node)
-// 		return (0);
-// 	if (node->right && node->right->value == node->value + 1)
-// 	{
-// 		right = (1 + longest_sequence(node->right));
-// 	}
-// 	if (node->left && node->left->value == node->value + 1)
-// 	{
-// 		left = (1 + longest_sequence(node->left));
-// 	}
-// 	if (right > left)
-// 		return (1 + longest_sequence(node->right));
-// 	else
-// 		return (1 + longest_sequence(node->left));
-// }
+	if (!node)
+		return (0);
+	if (node->right && node->right->value == node->value + 1)
+	{
+		right = (1 + longest_sequence(node->right));
+	}
+	if (node->left && node->left->value == node->value + 1)
+	{
+		left = (1 + longest_sequence(node->left));
+	}
+	if (right > left)
+		return (1 + longest_sequence(node->right));
+	else
+		return (1 + longest_sequence(node->left));
+}
 
 
 int check(t_node *tree, int value)

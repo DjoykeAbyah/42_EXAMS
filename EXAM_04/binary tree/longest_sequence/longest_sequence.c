@@ -1,6 +1,6 @@
 
-// #include <stdio.h>
-// #include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 struct s_node
 {
@@ -9,49 +9,74 @@ struct s_node
 	struct s_node *right;
 };
 
-static int	seq;
 
-int	trav(struct s_node *node)
+// int longest_sequence(struct s_node *node) 
+// {
+//     if (!node)
+//         return 0;
+
+//     int seqleft = longest_sequence(node->left);
+//     int seqright = longest_sequence(node->right);
+//     int seq = 0;
+
+//     if (node->left && node->left->value == node->value + 1)
+//         seqleft++;
+//     else
+//         seqleft = 0;
+//     if (node->right && node->right->value == node->value + 1)
+//         seqright++;
+//     else
+//         seqright = 0;
+//     if (seq < seqleft + 1)
+//         seq = seqleft + 1;
+//     if (seq < seqright + 1)
+//         seq = seqright + 1;
+//     if (seqleft > seqright)
+//         return seqleft;
+//     else
+//         return seqright;
+// }
+
+int longest_sequence(struct s_node *node)
 {
-	int	seqleft;
-	int	seqright;
+	int right;
+	int left;
 
 	if (!node)
 		return (0);
-	seqleft = trav(node->left);
-	seqright = trav(node->right);
+	if (node->right && node->right->value == node->value + 1)
+	{
+		right = (1 + longest_sequence(node->right));
+	}
 	if (node->left && node->left->value == node->value + 1)
-		seqleft++;
+	{
+		left = (1 + longest_sequence(node->left));
+	}
+	if (right > left)
+		return (1 + longest_sequence(node->right));
 	else
-		seqleft = 0;
-	if (node-> right && node->right->value == node->value + 1)
-		seqright++;
-	else
-		seqright = 0;
-	// Update the current sequence length if the left sequence plus one is longer
-	if (seq < seqleft + 1)
-    	seq = seqleft + 1;
-	// Update the current sequence length if the right sequence plus one is longer
-	if (seq < seqright + 1)
-    	seq = seqright + 1;
-	// Return the longest sequence found between the left and right subtrees
-	if (seqleft > seqright)
-   		return seqleft;
-	else
-   		return seqright;
+		return (1 + longest_sequence(node->left));
 }
 
-int	longest_sequence(struct s_node *node)
+void print_tree(t_node *tree, int spaces) 
 {
-	seq = 0;
-	trav(node);
-	return (seq);
+    if (!tree)
+	{
+        return;
+	}
+	spaces += 5;
+    print_tree(tree->right, spaces);
+    printf("\n");
+    for (int i = 0; i < spaces; i++)
+        printf(" ");
+    printf("%d\n", tree->value);
+    print_tree(tree->left, spaces);
 }
 
-/*
 int	main()
 {
 	struct s_node	*root;
+	int spaces = 0;
 	root = malloc(sizeof(*root));
 	root->value = 10;
 	root->left = malloc(sizeof(struct s_node));
@@ -68,7 +93,7 @@ int	main()
 	root->left->left->right->value = 13;
 	root->left->left->right->left = root->left->left->right->right = NULL;
 
-//	root->right = NULL;
+	root->right = NULL;
 
 	root->right = malloc(sizeof(struct s_node));
 	root->right->value = 11;
@@ -83,9 +108,9 @@ int	main()
 	root->right->left->left->left = NULL;
 	root->right->left->left->right->left = root->right->left->left->right->right = NULL;
 
+	print_tree(root, spaces);
 	printf("%i\n", longest_sequence(root));
 }
-*/
 
 
 // Assignment name  :                                           
