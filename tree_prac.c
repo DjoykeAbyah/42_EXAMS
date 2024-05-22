@@ -116,7 +116,5 @@ int main()
 // size **
 // swap
 
-
-// make and insert
 // width tree
 // sort
