@@ -53,7 +53,7 @@ int smallest_num(t_node *tree)
 	int cur_num;
 
 	if (!tree)
-		return (INT_MAX);
+		return (0);
 	cur_num = tree->value;
 	int left_min = smallest_num(tree->left);
 	int right_min = smallest_num(tree->right);

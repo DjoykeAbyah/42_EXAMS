@@ -55,7 +55,7 @@ int biggest_num(t_node *tree)
 	int right_biggest = 0;
 
 	if (!tree)
-		return (INT_MIN);
+		return (0);
 	cur_num = tree->value;
 	left_biggest = biggest_num(tree->left);
 	right_biggest = biggest_num(tree->right);

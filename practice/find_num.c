@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <unistd.h>
+#include <limits.h>
 
 typedef struct s_node
 {
@@ -48,21 +48,21 @@ void print_tree(t_node *tree, int spaces)
 	print_tree(tree->left, spaces);
 }
 
-int find_num(t_node *tree, int value)
+int find_num(t_node *tree, int num)
 {
-    if (tree)
-    {
-        if (tree->value < value)//mind the order of creating!
-            return find_num(tree->left, value);
-        else if (tree->value > value)
-            return find_num(tree->right, value);
-        else
-        {
-            write(1, "found\n", 6);
-            return 0;
-        }
-    }
-    return 1;
+	if (tree)
+	{
+		if (num > tree->value)
+			return (find_num(tree->left, num));
+		else if (num < tree->value)
+			return (find_num(tree->right, num));
+		else
+		{
+			printf("found\n");
+			return (0);
+		}
+	}
+	return (1);
 }
 
 int main()
@@ -71,13 +71,13 @@ int main()
 	int spaces = 0;
 
 	tree = NULL;
-	tree = create_tree(tree, 8);
 	tree = create_tree(tree, 5);
-	tree = create_tree(tree, -44);
-	tree = create_tree(tree, 2);
-	tree = create_tree(tree, 99);
+	tree = create_tree(tree, 6);
+	tree = create_tree(tree, 90);
+	tree = create_tree(tree, 8);
+	tree = create_tree(tree, 15);
 	tree = create_tree(tree, 1);
-	tree = create_tree(tree, 50);
-	find_num(tree, 2);
+	tree = create_tree(tree, 100);
 	print_tree(tree, spaces);
+	printf("return = %d\n", find_num(tree, 12));
 }

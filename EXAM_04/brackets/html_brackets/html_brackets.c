@@ -55,8 +55,8 @@ int check_same(t_list **lst, char *word)
 		return false;
 	while (curr_node != NULL)
 	{
-		printf("node_content = %s\n", (char *)curr_node->content);
-		printf("word = %s\n", word);
+		// printf("node_content = %s\n", (char *)curr_node->content);
+		// printf("word = %s\n", word);
 		if (strcmp((char *)curr_node->content, word) == 0)
 		{
 			if (prev_node != NULL)
@@ -75,16 +75,16 @@ int check_same(t_list **lst, char *word)
 	return (1);
 }
 
-bool validate(t_list **lst, char *str)
+int validate(t_list **lst, char *str)
 {
 	int i;
 	t_list *new_node;
 
 	i = 0;
 	if (!str)
-		return (true);
+		return (0);
 	if (str[0] != '<')
-		return (false);
+		return (1);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '<' && str[i + 1] != '/')
@@ -118,7 +118,7 @@ bool validate(t_list **lst, char *str)
 				if (strcmp(word, "img") != 0)
 				{
 					if (check_same(lst, word) == 1)
-						return (false);
+						return (1);
 				}
 				free (word);
 			}
@@ -126,7 +126,7 @@ bool validate(t_list **lst, char *str)
 		}
 		i++;
 	}
-	return (true);
+	return (0);
 }
 
 int main(int argc, char **argv) 
@@ -147,7 +147,7 @@ int main(int argc, char **argv)
 	{
 		if (argv[i][0] == '\0')
 			write (1, "OK\n", 3);
-		else if (validate(&list, argv[i]) == false)
+		else if (validate(&list, argv[i]) == 1)
 		{
 			write(1, "KO\n", 3);
 		}

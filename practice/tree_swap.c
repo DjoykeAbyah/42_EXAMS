@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-typedef struct s_node 
+typedef struct s_node
 {
-    int           value;
-    struct s_node *right;
-    struct s_node *left;
+	int value;
+	struct s_node *left;
+	struct s_node *right;
 }	t_node;
 
 t_node *init_tree(t_node *tree, int value)
@@ -52,13 +52,14 @@ void tree_swap(t_node *tree)
 	t_node *temp;
 
 	temp = NULL;
-	if (tree)// don't forget!
+	if (tree)
 	{
 		tree_swap(tree->left);
 		tree_swap(tree->right);
 		temp = tree->left;
 		tree->left = tree->right;
 		tree->right = temp;
+		return ;
 	}
 }
 
@@ -68,12 +69,12 @@ int main()
 	int spaces = 0;
 
 	tree = NULL;
-	tree = create_tree(tree, 6);
-	tree = create_tree(tree, 10);
-	tree = create_tree(tree, 20);
-	tree = create_tree(tree, 7);
-	tree = create_tree(tree, 90);
-	tree = create_tree(tree, 1);
+	tree = create_tree(tree, 5);
+	tree = create_tree(tree, 300);
+	tree = create_tree(tree, -2);
+	tree = create_tree(tree, 14);
+	tree = create_tree(tree, 30);
+	tree = create_tree(tree, -3);
 	print_tree(tree, spaces);
 	tree_swap(tree);
 	print_tree(tree, spaces);
