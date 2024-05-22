@@ -178,8 +178,9 @@ int main()
 // add ++
 // find num ++
 
-// longest sequence
+// longest sequence???
+
+
 // width tree
 // sort
-// can split
-        
+// can split       
