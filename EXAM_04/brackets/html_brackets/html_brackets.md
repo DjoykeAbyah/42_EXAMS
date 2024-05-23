@@ -21,16 +21,25 @@ If there is no arguments, the program must print only a newline.
 Examples :
 
 $> ./html_anglebrackets '<html><bla><body></body><newbody></newbody></bla></html>' | cat -e
-OK$
+0$
 $> ./html_anglebrackets '<bla gvngf></html><bla></html>' | cat -e
-Error$
+1$
 $> ./html_anglebrackets '' '<html><bla></html><html></bla></html>' | cat -e
-OK$
-OK$
+0$
+0$
 $> ./html_anglebrackets | cat -e
 $
 $> ./html_anglebrackets '<html><img></html><img><html><img></html>' | cat -e
-OK$
+0$
 
 
 stack until closing is found, compare with last open, (either delete when linked list or --)
+
+<head><html> = 1;
+
+<div><a><html><div><body><head><head><html></html></head></head></span></body></div></html></a></div> = 1;
+
+<custom-element attribute="value"></custom-element> = 0;
+
+<hello attribute="haha!"></hello> = 0;
+

@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 typedef struct s_list
 {
@@ -10,11 +9,20 @@ typedef struct s_list
 	struct s_list *next;
 } t_list;
 
+t_list *ft_lstnew(void *content)
+{
+	t_list *new;
+	new = malloc(sizeof(t_list));
+	new->content = content;
+	new->next = NULL;
+	return (new);
+}
+
 t_list *ft_lstlast(t_list *lst)
 {
-	if (lst == NULL)
+	if (!lst)
 		return (NULL);
-	while(lst->next != NULL)
+	while (lst->next != NULL)
 		lst = lst->next;
 	return (lst);
 }
@@ -32,45 +40,45 @@ void ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 }
 
-t_list *ft_lstnew(void *content)
+int ft_strlen(char *str)
 {
-	t_list *new_node;
-	new_node = malloc(sizeof (t_list));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
-int check_same(t_list **lst, char *word)
+int match_check(t_list **lst, char *word)
 {
-	t_list *prev_node;
-	t_list *curr_node;
+	t_list *prev;
+	t_list *cur;
 	t_list *temp;
 
-	prev_node = NULL;
-	curr_node = *lst;
-	if (*lst == NULL)
-		return false;
-	while (curr_node != NULL)
+	prev = NULL;
+	cur = *lst;
+	temp = NULL;
+	if (!*lst)
+		return (1);
+	while (cur != NULL)
 	{
-		// printf("node_content = %s\n", (char *)curr_node->content);
+		// printf("node_content = %s\n", (char *)cur->content);
 		// printf("word = %s\n", word);
-		if (strcmp((char *)curr_node->content, word) == 0)
+		if (strncmp((char *)cur->content, word, ft_strlen(word)) == 0)
 		{
-			if (prev_node != NULL)
-				prev_node->next = curr_node->next;
+			if (prev != NULL)
+				prev->next = cur->next;
 			else
-				*lst = curr_node->next;
-			free(curr_node->content);
-			temp = curr_node;
-			curr_node = curr_node->next;
+				*lst = cur->next;
+			free(cur->content);
+			temp = cur;
+			cur = cur->next;
 			free(temp);
 			return (0);
 		}
-		prev_node = curr_node;
-		curr_node = curr_node->next;
+		prev = cur;
+		cur = cur->next;
 	}
 	return (1);
 }
@@ -78,9 +86,12 @@ int check_same(t_list **lst, char *word)
 int validate(t_list **lst, char *str)
 {
 	int i;
-	t_list *new_node;
+	int close_num;
+	t_list *new;
 
 	i = 0;
+	new = NULL;
+	close_num = 0;
 	if (!str)
 		return (0);
 	if (str[0] != '<')
@@ -97,39 +108,46 @@ int validate(t_list **lst, char *str)
 				char *word = malloc(sizeof(char) * (j - i));
 				strncpy(word, &str[i + 1], j - i);
 				word[j - i - 1] = '\0';
-				if (strcmp(word, "img") != 0)
+				printf("word1 = %s\n", word);
+				if (strncmp(word, "img", ft_strlen(word)) != 0)
 				{
-					new_node = ft_lstnew(word);
-					ft_lstadd_back(lst, new_node);
+					new = ft_lstnew(word);
+					ft_lstadd_back(lst, new);
 				}
 				i = j;
 			}
 		}
 		if (str[i] == '<' && str[i + 1] == '/')
 		{
+			close_num++;
 			int j = i + 1;
 			while (str[j] != '\0' && str[j] != '>')
 				j++;
 			if (str[j] == '>')
 			{
 				char *word = malloc(sizeof(char) * (j - i));
-				strncpy(word, &str[i + 2], (j - i - 2));
-				word[j - i - 2] = '\0';	
-				if (strcmp(word, "img") != 0)
+				strncpy(word, &str[i + 2], j - i - 2);
+				word[j - i - 2] = '\0';
+				printf("word2 = %s\n", word);
+				if (strncmp(word, "img", ft_strlen(word)) != 0)
 				{
-					if (check_same(lst, word) == 1)
+					if (match_check(lst, word) == 1)
 						return (1);
 				}
-				free (word);
+				free(word);
 			}
 			i = j;
 		}
 		i++;
 	}
+	if (*lst)
+		return (1);
+	if (close_num == 0)
+		return (1);
 	return (0);
 }
 
-int main(int argc, char **argv) 
+int	main(int argc, char **argv) 
 {
 	t_list *list;
 	int i;
@@ -139,22 +157,17 @@ int main(int argc, char **argv)
 	i = 1;
 	j = 1;
 	if (argc == 1)
-	{
-		write(1, "\n", 1);
 		return (0);
-	}
 	while (j < argc)
 	{
 		if (argv[i][0] == '\0')
-			write (1, "OK\n", 3);
+			return (0);
 		else if (validate(&list, argv[i]) == 1)
-		{
-			write(1, "KO\n", 3);
-		}
+			return (1);
 		else
-			write (1, "OK\n", 3);
+			return (0);
 		i++;
 		j++;
 	}
-    return 0;
+    return (0);
 }
