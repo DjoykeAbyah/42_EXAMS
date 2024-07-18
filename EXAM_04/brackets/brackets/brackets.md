@@ -19,13 +19,22 @@ If there is no arguments, the program must print only a newline.
 
 Examples :
 
-$> ./brackets '(johndoe)' | cat -e
-OK$
-$> ./brackets '([)]' | cat -e
-Error$
-$> ./brackets '' '{[(0 + 0)(1 + 1)](3*(-1)){()}}' | cat -e
-OK$
-OK$
-$> ./brackets | cat -e
-$
-$>
+`$> ./brackets '(johndoe)' | cat -e`
+
+`OK$`
+
+`$> ./brackets '([)]' | cat -e`
+
+`Error$`
+
+`$> ./brackets '' '{[(0 + 0)(1 + 1)](3*(-1)){()}}' | cat -e`
+
+`OK$`
+
+`OK$`
+
+`$> ./brackets | cat -e`
+
+`$`
+
+`$>`
