@@ -81,14 +81,11 @@ int match_check(t_list **lst, char *word)
 int validate(t_list **lst, char *str)
 {
 	int i = 0;
-	int close_num = 0;
 	int open_num = 0;
 	t_list *new = NULL;
 
 	if (!str)
 		return (0);
-	if (str[0] != '<')
-		return (1);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '<' && str[i + 1] != '/')
@@ -113,7 +110,6 @@ int validate(t_list **lst, char *str)
 		}
 		if (str[i] == '<' && str[i + 1] == '/')
 		{
-			close_num++;
 			if (open_num == 0)
 				return (1);
 			int j = i + 1;
@@ -131,6 +127,7 @@ int validate(t_list **lst, char *str)
 						return (1);
 				}
 				free(word);
+                open_num--;
 			}
 			i = j;
 		}
@@ -138,32 +135,30 @@ int validate(t_list **lst, char *str)
 	}
 	if (*lst)
 		return (1);
-	if (close_num == 0)
+	if (open_num != 0)
 		return (1);
 	return (0);
 }
 
 int	main(int argc, char **argv) 
 {
-	t_list *list;
-	int i;
-	int j;
+	t_list *list =  NULL;
+	int i = 1;
 
-	list = NULL;
-	i = 1;
-	j = 1;
 	if (argc == 1)
+    {
+        write(1, "\n", 1);
 		return (0);
-	while (j < argc)
+    }
+	while (i < argc)
 	{
 		if (argv[i][0] == '\0')
-			return (0);
+            printf("YES\n");
 		else if (validate(&list, argv[i]) == 1)
-			return (1);
-		else
-			return (0);
+            printf("NO\n");
+        else
+            printf("YES\n");
 		i++;
-		j++;
 	}
     return (0);
 }

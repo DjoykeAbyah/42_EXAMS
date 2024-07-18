@@ -157,7 +157,10 @@ int	main(int argc, char **argv)
 	i = 1;
 	j = 1;
 	if (argc == 1)
+	{
+		write(1, "\n", 1);
 		return (0);
+	}
 	while (j < argc)
 	{
 		if (argv[i][0] == '\0')
