@@ -20,17 +20,27 @@ If there is no arguments, the program must print only a newline.
 
 Examples :
 
-$> ./html_anglebrackets '<html><bla><body></body><newbody></newbody></bla></html>' | cat -e
-0$
-$> ./html_anglebrackets '<bla gvngf></html><bla></html>' | cat -e
-1$
-$> ./html_anglebrackets '' '<html><bla></html><html></bla></html>' | cat -e
-0$
-0$
-$> ./html_anglebrackets | cat -e
-$
-$> ./html_anglebrackets '<html><img></html><img><html><img></html>' | cat -e
-0$
+`$> ./html_anglebrackets '<html><bla><body></body><newbody></newbody></bla></html>' | cat -e`
+
+`$ OK`
+
+`$> ./html_anglebrackets '<bla gvngf></html><bla></html>' | cat -e`
+
+`$ Error`
+
+`$> ./html_anglebrackets '' '<html><bla></html><html></bla></html>' | cat -e`
+
+`$ OK`
+
+`$ OK`
+
+`$> ./html_anglebrackets | cat -e`
+
+`$`
+
+`$> ./html_anglebrackets '<html><img></html><img><html><img></html>' | cat -e`
+
+`$ Error`
 
 
 stack until closing is found, compare with last open, (either delete when linked list or --)
