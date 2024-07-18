@@ -20,25 +20,25 @@ If there is no arguments, the program must print only a newline.
 
 Examples :
 
-`$> ./html_anglebrackets '<html><bla><body></body><newbody></newbody></bla></html>' | cat -e`
+`$> ./html_brackets '<html><bla><body></body><newbody></newbody></bla></html>' | cat -e`
 
 `$ OK`
 
-`$> ./html_anglebrackets '<bla gvngf></html><bla></html>' | cat -e`
+`$> ./html_brackets '<bla gvngf></html><bla></html>' | cat -e`
 
 `$ Error`
 
-`$> ./html_anglebrackets '' '<html><bla></html><html></bla></html>' | cat -e`
+`$> ./html_brackets '' '<html><bla></html><html></bla></html>' | cat -e`
 
 `$ OK`
 
 `$ OK`
 
-`$> ./html_anglebrackets | cat -e`
+`$> ./html_brackets | cat -e`
 
 `$`
 
-`$> ./html_anglebrackets '<html><img></html><img><html><img></html>' | cat -e`
+`$> ./html_brackets '<html><img></html><img><html><img></html>' | cat -e`
 
 `$ Error`
 
