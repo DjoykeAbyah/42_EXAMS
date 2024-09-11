@@ -36,7 +36,7 @@ void ft_list_add_back(t_list **list, t_list *new) {
 }
 
 int compare_words(t_list **list, char *word) {
-	t_list *previous;
+	t_list *previous = NULL;
 	t_list *current = *list;
 
 	while (current->next) {
