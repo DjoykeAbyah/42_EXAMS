@@ -32,7 +32,7 @@ Examples :
 
 `$ OK`
 
-`$ OK`
+`$ Error`
 
 `$> ./html_brackets | cat -e`
 
@@ -40,7 +40,7 @@ Examples :
 
 `$> ./html_brackets '<html><img></html><img><html><img></html>' | cat -e`
 
-`$ Error`
+`$ OK`
 
 
 stack until closing is found, compare with last open, (either delete when linked list or --)

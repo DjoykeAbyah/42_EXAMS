@@ -1,138 +1,107 @@
 #include <unistd.h>
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-typedef struct s_list
-{
-	void *content;
+typedef struct s_list {
+	char *value;
 	struct s_list *next;
 } t_list;
 
-t_list *ft_lstnew(void *content)
-{
-	t_list *new;
-	new = malloc(sizeof(t_list));
-	new->content = content;
-	new->next = NULL;
-	return (new);
+t_list *init_node(char *value) {
+	t_list *new_node = malloc(sizeof(t_list));
+	new_node->value = value;
+	new_node->next = NULL;
+	return (new_node);
 }
 
-t_list *ft_lstlast(t_list *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst->next != NULL)
+t_list *lst_last(t_list *lst) {
+	while (lst && lst->next) {
 		lst = lst->next;
+	}
 	return (lst);
 }
 
-void ft_lstadd_back(t_list **lst, t_list *new)
-{
+void lst_add_back(t_list **lst, t_list *new) {
 	t_list *back;
-
-	if (*lst)
-	{
-		back = ft_lstlast(*lst);
+	if (*lst) {
+		back = lst_last(*lst);
 		back->next = new;
 	}
 	else
 		*lst = new;
 }
 
-int ft_strlen(char *str)
-{
-	int i;
+int check_words(t_list **stack, char *word) {
+	t_list *previous = NULL;
+	t_list *current = *stack;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-int match_check(t_list **lst, char *word)
-{
-	t_list *prev;
-	t_list *cur;
-	t_list *temp;
-
-	prev = NULL;
-	cur = *lst;
-	temp = NULL;
-	if (!*lst)
-		return (1);
-	while (cur != NULL)
-	{
-		// printf("node_content = %s\n", (char *)cur->content);
-		// printf("word = %s\n", word);
-		if (strncmp((char *)cur->content, word, ft_strlen(word)) == 0)
-		{
-			if (prev != NULL)
-				prev->next = cur->next;
-			else
-				*lst = cur->next;
-			free(cur->content);
-			temp = cur;
-			cur = cur->next;
-			free(temp);
-			return (0);
-		}
-		prev = cur;
-		cur = cur->next;
+	while (current && current->next) {
+		previous = current;
+		current = current->next;
 	}
-	return (1);
+	if (current && strcmp(current->value, word) == 0) {
+		if (previous == NULL)
+			*stack = NULL;
+		else
+			previous->next = NULL;
+		free(current->value);
+		free(current);
+		return (0);
+	}
+	else
+		return (1);
 }
 
-int validate(t_list **lst, char *str)
-{
-	int i;
-	int close_num;
-	t_list *new;
+char *tag_extractor(char *str, int len) {
+	char *tag = malloc(sizeof(char) * len + 1);
+	int i = 0;
+	
+	while (i < len && str[i] != ' ' && str[i] != '/') {
+		tag[i] = str[i];
+		i++;
+	}
+	tag[i] = '\0';
+	return (tag);
+}
 
-	i = 0;
-	new = NULL;
-	close_num = 0;
-	if (!str)
-		return (0);
-	if (str[0] != '<')
-		return (1);
-	while (str[i] != '\0')
-	{
-		if (str[i] == '<' && str[i + 1] != '/')
-		{
+int tag_validator(char *str) {
+	int i = 0;
+	t_list *stack = NULL;
+
+	while (str[i]) {
+		if (str[i] == '<' && str[i + 1] != '/') {
 			int j = i + 1;
-			while (str[j] != '\0' && str[j] != '>')
-				j++;
-			if (str[j] == '>')
-			{
-				char *word = malloc(sizeof(char) * (j - i));
-				strncpy(word, &str[i + 1], j - i);
-				word[j - i - 1] = '\0';
-				printf("word1 = %s\n", word);
-				if (strncmp(word, "img", ft_strlen(word)) != 0)
-				{
-					new = ft_lstnew(word);
-					ft_lstadd_back(lst, new);
+			while (str[i] != '>')
+				i++;
+			if (str[i] == '>') {
+				int len = i - j;
+				char *word = tag_extractor(&str[j], len);
+				if (strcmp(word, "img") == 0)
+					i = j;
+				else {
+					t_list *new_node = init_node(word);
+					lst_add_back(&stack, new_node);
 				}
-				i = j;
 			}
+			i = j;
 		}
-		if (str[i] == '<' && str[i + 1] == '/')
-		{
-			close_num++;
-			int j = i + 1;
-			while (str[j] != '\0' && str[j] != '>')
-				j++;
-			if (str[j] == '>')
-			{
-				char *word = malloc(sizeof(char) * (j - i));
-				strncpy(word, &str[i + 2], j - i - 2);
-				word[j - i - 2] = '\0';
-				printf("word2 = %s\n", word);
-				if (strncmp(word, "img", ft_strlen(word)) != 0)
-				{
-					if (match_check(lst, word) == 1)
+		if (str[i] == '<' && str[i + 1] == '/') {
+			int j = i + 2;
+			while (str[i] != '>')
+				i++;
+			if (str[i] == '>') {
+				int len = i - j;
+				char *word = tag_extractor(&str[j], len);
+				if (check_words(&stack, word) == 1) {
+					free(word);
+					t_list *temp;
+					while (stack) {
+						temp = stack;
+						stack = stack->next;
+						free(temp->value);
+						free(temp);
 						return (1);
+					}
 				}
 				free(word);
 			}
@@ -140,37 +109,33 @@ int validate(t_list **lst, char *str)
 		}
 		i++;
 	}
-	if (*lst)
+	if (stack != NULL) {
+		t_list *temp;
+		while (stack) {
+			temp = stack;
+			stack = stack->next;
+			free(temp->value);
+			free(temp);
+		}		
 		return (1);
-	if (close_num == 0)
-		return (1);
-	return (0);
+	}
+	else
+		return (0);
 }
 
-int	main(int argc, char **argv) 
-{
-	t_list *list;
-	int i;
-	int j;
+int main(int argc, char **argv) {
+	int i = 1;
 
-	list = NULL;
-	i = 1;
-	j = 1;
-	if (argc == 1)
-	{
-		write(1, "\n", 1);
-		return (0);
+	if (argc == 1) {
+		return(write(1, "\n", 1));
 	}
-	while (j < argc)
-	{
-		if (argv[i][0] == '\0')
-			return (0);
-		else if (validate(&list, argv[i]) == 1)
-			return (1);
+	while (argv[i]) {
+		if (tag_validator(argv[i]) == 0) {
+			write(1, "OK\n", 3);
+		}
 		else
-			return (0);
+			write(1, "Error\n", 6);
 		i++;
-		j++;
 	}
-    return (0);
+	return (0);
 }
