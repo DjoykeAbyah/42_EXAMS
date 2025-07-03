@@ -1,0 +1,21 @@
+/*
+Write a function that reverses a singly linked list in place.
+
+It must be declared as follows:
+
+t_list  *reverse_list(t_list *lst);
+
+- lst: a pointer to the beginning of a singly linked list.
+- The function should reverse the order of the nodes in the list.
+- It must return a pointer to the new head of the reversed list.
+
+You must use the following structure, and turn it in your file reverse_list.c:
+
+typedef struct    s_list
+{
+    int           value;
+    struct s_list *next;
+}                 t_list;
+
+You are not allowed to use any functions other than malloc and free.
+*/

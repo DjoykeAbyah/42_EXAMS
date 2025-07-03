@@ -1,0 +1,20 @@
+/*
+Write a function that returns the number of elements in a linked list.
+
+It must be declared as follows:
+
+int     ft_list_size(t_list *begin_list);
+
+- begin_list: a pointer to the beginning of the list.
+- The function should return the number of nodes in the list.
+
+You must use the following structure, and turn it in your file ft_list_size.c:
+
+typedef struct    s_list
+{
+    struct s_list *next;
+    void          *data;
+}                 t_list;
+
+You may assume the list is properly terminated (last node’s next is NULL).
+*/

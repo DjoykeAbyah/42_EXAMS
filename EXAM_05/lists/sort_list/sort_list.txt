@@ -1,0 +1,24 @@
+/*
+Write a function that sorts a singly linked list in ascending order,
+based on a comparison function passed as a parameter.
+
+It must be declared as follows:
+
+t_list  *sort_list(t_list *lst, int (*cmp)(int, int));
+
+- lst: a pointer to the beginning of the list.
+- cmp: a comparison function that returns 1 if the order is correct, or 0 if the elements must be swapped.
+
+The function should sort the list in-place by swapping the contents of nodes (not the nodes themselves).
+You must return a pointer to the head of the sorted list.
+
+You must use the following structure, and turn it in your file sort_list.c:
+
+typedef struct    s_list
+{
+    int           data;
+    struct s_list *next;
+}                 t_list;
+
+Only malloc and free are allowed.
+*/

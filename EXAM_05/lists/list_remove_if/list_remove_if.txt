@@ -1,0 +1,27 @@
+/*
+Write a function that removes elements from a linked list if their data
+matches a given reference, using a comparison function.
+
+It must be declared as follows:
+
+void    ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)());
+
+- begin_list: a pointer to the beginning of the list.
+- data_ref: a reference value to compare each node's data against.
+- cmp: a function that takes two void* arguments and returns 0 if they are considered equal.
+
+The function should traverse the list and remove any node for which cmp(node->data, data_ref) == 0.
+You must free each removed node using free().
+
+You must use the following structure, and turn it in your file ft_list_remove_if.c:
+
+typedef struct    s_list
+{
+    struct s_list *next;
+    void          *data;
+}                 t_list;
+
+You may assume that the list contains dynamically allocated nodes.
+You may not assume anything about the data stored in the list nodes.
+Only malloc and free are allowed.
+*/
